@@ -5,8 +5,6 @@ var test := false
 @onready var inventory_system: InventorySystem = %InventorySystem
 @onready var inventory_grid: InventoryGrid = %InventoryGrid
 
-
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	inventory_grid.populate_grid(inventory_system)

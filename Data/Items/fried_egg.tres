@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemDataConsumable" load_steps=3 format=3 uid="uid://cqinulqgpb5eh"]
+
+[ext_resource type="Script" uid="uid://btiakfxclsslp" path="res://Inventory/item_data_consumable.gd" id="1_ulovj"]
+[ext_resource type="Texture2D" uid="uid://pjrccqh2ofhs" path="res://Assets/ItemSpritesheetAtlas.tres" id="2_ulovj"]
+
+[resource]
+script = ExtResource("1_ulovj")
+heal_value = -15
+stamina_value = 30
+pretty_name = "Fried Egg"
+id = 2
+description = "A delicious looking fried egg. TASTY!"
+sprite = ExtResource("2_ulovj")
+type = 2
+buy_price = 34
+sell_price = 2
+metadata/_custom_type_script = "uid://btiakfxclsslp"

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://dhmk7scvssxlr"]
+
+[ext_resource type="Script" uid="uid://bdukliysn54bg" path="res://Inventory/item_data.gd" id="1_xt2xq"]
+[ext_resource type="Texture2D" uid="uid://vu0e0d6pr1uv" path="res://Assets/ItemSpriteSheet16x16.png" id="2_xt2xq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xt2xq"]
+atlas = ExtResource("2_xt2xq")
+region = Rect2(48, 0, 16, 16)
+
+[resource]
+script = ExtResource("1_xt2xq")
+pretty_name = "Oak Log"
+id = 1
+description = "A large oak log"
+sprite = SubResource("AtlasTexture_xt2xq")
+buy_price = 8
+sell_price = 6
+burnable = true
+burn_time = 60
+burn_temp = 800
+metadata/_custom_type_script = "uid://bdukliysn54bg"

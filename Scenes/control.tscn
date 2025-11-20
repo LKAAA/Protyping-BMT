@@ -1,0 +1,77 @@
+[gd_scene load_steps=5 format=3 uid="uid://crcrisvgneun4"]
+
+[ext_resource type="Script" uid="uid://obowre0gqy7u" path="res://Scripts/control.gd" id="1_sjmnu"]
+[ext_resource type="FontFile" uid="uid://cs1f3s61fu572" path="res://Assets/TeenyTinyPixls-o2zo.ttf" id="2_cgmvo"]
+[ext_resource type="PackedScene" uid="uid://bykc5acojqfyu" path="res://Inventory/InventorySystem.tscn" id="3_vh8u0"]
+[ext_resource type="Script" uid="uid://sgitl6mmlrgs" path="res://Scripts/inventory_grid.gd" id="4_wpaqk"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sjmnu")
+
+[node name="PopupButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 7.0
+offset_right = 102.0
+offset_bottom = 44.0
+theme_override_fonts/font = ExtResource("2_cgmvo")
+theme_override_font_sizes/font_size = 10
+text = "Test Popup
+"
+
+[node name="AddWoodButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 48.0
+offset_right = 109.0
+offset_bottom = 85.0
+theme_override_fonts/font = ExtResource("2_cgmvo")
+theme_override_font_sizes/font_size = 10
+text = "Add Wood x1"
+
+[node name="AddWoodButton5" type="Button" parent="."]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 92.0
+offset_right = 109.0
+offset_bottom = 129.0
+theme_override_fonts/font = ExtResource("2_cgmvo")
+theme_override_font_sizes/font_size = 10
+text = "Add Egg x1"
+
+[node name="AddWoodButton100" type="Button" parent="."]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 137.0
+offset_right = 125.0
+offset_bottom = 174.0
+theme_override_fonts/font = ExtResource("2_cgmvo")
+theme_override_font_sizes/font_size = 10
+text = "Add Wood x100"
+
+[node name="InventorySystem" parent="." instance=ExtResource("3_vh8u0")]
+unique_name_in_owner = true
+position = Vector2(400.5526, 107.588356)
+locked_slots = 12
+
+[node name="InventoryGrid" type="GridContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 275.0
+offset_right = 479.0
+offset_bottom = 18.0
+theme_override_constants/h_separation = -1
+theme_override_constants/v_separation = -1
+columns = 12
+script = ExtResource("4_wpaqk")
+
+[connection signal="pressed" from="PopupButton" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="AddWoodButton" to="." method="_on_add_wood_button_pressed"]
+[connection signal="pressed" from="AddWoodButton5" to="." method="_on_add_wood_button_5_pressed"]
+[connection signal="pressed" from="AddWoodButton100" to="." method="_on_add_wood_button_100_pressed"]

@@ -84,6 +84,30 @@ func can_place_item_stack(item_stack: ItemStack) -> bool:
 	
 	return false
 
+func grab_item_stack(index: int) -> ItemStack:
+	var item_stack = inventory[index]
+	if item_stack:
+		inventory[index] = null
+		print("Returning Emitting")
+		inventory_updated.emit(self, index)
+		return item_stack
+	else:
+		print("Returning Null")
+		return null
+
+func grab_new_single_item_stack(index: int) -> ItemStack:
+	var item_stack = inventory[index]
+	var return_item_stack: ItemStack
+	if item_stack:
+		return_item_stack = item_stack.create_single_item_stack()
+		item_stack.quantity -= 1
+		if inventory[index].quantity < 1:
+			inventory[index] = null
+		inventory_updated.emit(self, index)
+		return return_item_stack
+	else:
+		return null
+
 func add_item_data(item_data: ItemData, quantity: int = 1) -> bool:
 	print("Excess ", quantity)
 	var excess = quantity
@@ -101,6 +125,32 @@ func add_item_data(item_data: ItemData, quantity: int = 1) -> bool:
 	
 	return true
 
+func grab_single_item_stack(grabbed_item_stack: ItemStack, index: int) -> ItemStack:
+	var item_stack = inventory[index]
+	if item_stack and grabbed_item_stack.quantity + 1 <= grabbed_item_stack.item_data.stack_size and item_stack.item_data == grabbed_item_stack.item_data:
+		grabbed_item_stack.quantity += 1
+		item_stack.quantity -= 1
+		if inventory[index].quantity < 1:
+			inventory[index] = null
+			Popups.hide_item_popup()
+		inventory_updated.emit(self, index)
+	
+	return grabbed_item_stack
+
+func drop_item_stack(grabbed_item_stack: ItemStack, index: int) -> ItemStack:
+	var item_stack = inventory[index]
+	
+	var return_item_stack: ItemStack
+	if item_stack and item_stack.can_fully_merge_with(grabbed_item_stack):
+		item_stack.fully_merge_with(grabbed_item_stack)
+	else:
+		inventory[index] = grabbed_item_stack
+		return_item_stack = item_stack
+		Popups.show_item_popup(inventory[index].item_data)
+	
+	inventory_updated.emit(self, index)
+	return return_item_stack
+
 func create_item_stack(item_data: ItemData, quantity: int = 1) -> ItemStack: 
 	var item_stack = ItemStack.new()
 	
@@ -111,3 +161,7 @@ func create_item_stack(item_data: ItemData, quantity: int = 1) -> ItemStack:
 
 func has_open_slots() -> bool:
 	return inventory.size() < inventory_slots
+
+func on_slot_clicked(index: int, button: int) -> void:
+	print("index ", index)
+	inventory_interacted.emit(self, index, button)

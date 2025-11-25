@@ -15,6 +15,8 @@ const STAT_POPUP_LABEL = preload("uid://5whwtrtjevsn")
 @onready var item_description_label: RichTextLabel = %ItemDescriptionLabel
 @onready var item_rarity_label: RichTextLabel = %ItemRarityLabel
 
+var grabbed_slot: bool = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	item_popup.unfocusable = true
@@ -25,6 +27,12 @@ func _process(delta: float) -> void:
 		update_popup_position()
 
 func update_popup_position() -> void:
+	if grabbed_slot: 
+		padding_x = 14
+		padding_y = 14
+	else:
+		padding_x = 8
+		padding_y = 10
 	item_popup.size = Vector2.ZERO
 	var mouse := get_global_mouse_position()
 	var rect := get_viewport_rect()

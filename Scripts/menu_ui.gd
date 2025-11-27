@@ -22,33 +22,34 @@ func _set_player_inventory(inventory_system: InventorySystem) -> void:
 
 func _set_external_inventory(_external_inventory) -> void:
 	external_inventory_owner = _external_inventory
-	#external_inv_system = external_inventory_owner.inventory_system
-	external_inv_system = _external_inventory
+	for child in external_inventory_owner.get_children():
+		if child is InventorySystem:
+			external_inv_system = child
 	
 	external_inv_system.inventory_interacted.connect(on_inventory_interact)
 	external_inventory.set_inventory(external_inv_system)
 
 func clear_external_inventory() -> void:
 	if external_inventory_owner:
-		var inventory_data = external_inventory_owner.inventory_data
+		var inventory_system = external_inv_system
 		
-		inventory_data.inventory_interacted.disconnect(on_inventory_interact)
-		external_inventory.clear_inventory(inventory_data)
+		inventory_system.inventory_interacted.disconnect(on_inventory_interact)
+		external_inventory.clear_inventory(inventory_system)
 		
 		external_inv_system = null
 		external_inventory_owner = null
 
 func on_inventory_interact(inventory_system: InventorySystem, index: int, button: int) -> void:
 	print("Inventory Interacted")
-	#if external == true:
-		#if Input.is_key_pressed(KEY_SHIFT) && button == MOUSE_BUTTON_LEFT:
-			#print("SHIFT CLICK THAT MO FO")
-			#if inventory_system == external_inv_data:
-				#inventory_system.quick_move_stack(index, Global.player.inventory)
-			#else:
-				#inventory_system.quick_move_stack(index, external_inv_data)
-			#
-			#return
+	if external == true:
+		if Input.is_key_pressed(KEY_SHIFT) && button == MOUSE_BUTTON_LEFT:
+			print("SHIFT CLICK THAT MO FO")
+			if inventory_system == external_inv_system:
+				inventory_system.quick_move_stack(index, ItemManager.player_inventory_system)
+			else:
+				inventory_system.quick_move_stack(index, external_inv_system)
+			
+			return
 	
 	match [grabbed_item_stack, button]:
 		[null, MOUSE_BUTTON_LEFT]:

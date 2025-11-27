@@ -16,12 +16,15 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_sjmnu")
 
+[node name="Chest" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="ChestInventory" parent="Chest" instance=ExtResource("3_vh8u0")]
+
 [node name="InventorySystem" parent="." instance=ExtResource("3_vh8u0")]
 unique_name_in_owner = true
 position = Vector2(400.5526, 107.588356)
-locked_slots = 12
-
-[node name="ExternalInventory" parent="." instance=ExtResource("3_vh8u0")]
+locked_slots = 24
 
 [node name="Menu_UI" type="Control" parent="."]
 unique_name_in_owner = true

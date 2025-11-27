@@ -151,6 +151,18 @@ func drop_item_stack(grabbed_item_stack: ItemStack, index: int) -> ItemStack:
 	inventory_updated.emit(self, index)
 	return return_item_stack
 
+func quick_move_stack(index: int, other_inventory: InventorySystem) -> bool:
+	var item_stack = inventory[index]
+	if not item_stack:
+		return false
+	
+	if other_inventory.add_item_stack(item_stack):
+		inventory[index] = null
+		inventory_updated.emit(self, index)
+		return true
+	
+	return false
+
 func create_item_stack(item_data: ItemData, quantity: int = 1) -> ItemStack: 
 	var item_stack = ItemStack.new()
 	

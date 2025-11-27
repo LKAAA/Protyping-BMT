@@ -6,6 +6,8 @@ enum TOOL_TYPES {AXE, PICKAXE, SHOVEL, TONGS}
 
 const MAX_STACK_SIZE: int = 999
 
+var player_inventory_system
+
 # Maps item_id -> ItemResource
 var items_by_id: Dictionary = {}
 # Maps item_file_name (like "oak_log") -> ItemResource
